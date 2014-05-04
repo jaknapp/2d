@@ -1,0 +1,1 @@
+<html><head><script src="http://code.jquery.com/jquery-1.10.1.min.js"></script><script></script><style>body {	position: relative;	margin: 0;	padding: 0;}</style></head><body class='map'><svg xmlns="http://www.w3.org/2000/svg" version="1.1">	<image xlink:href="tilesets/war2_trees_autotile.png" x="0" y="32" height="93px" width="96px"/></svg></body></html>
