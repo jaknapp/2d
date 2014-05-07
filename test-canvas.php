@@ -46,7 +46,7 @@ function draw() {
 }
 </script>
 </head>
-<body class='map' onload='draw()' style='overflow:hidden; position:relative;'>
+<body class='map' onload='' style='overflow:hidden; position:relative;'>
 <canvas width='500' height='500' id='light' style='z-index:10; position:absolute; left:50%; top:50%; margin-left:-250px; margin-top:-250px;'></canvas>
 <!--<canvas class='game-client' id='game-client'></canvas>-->
 </body>

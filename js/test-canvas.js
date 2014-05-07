@@ -141,8 +141,11 @@ Map.prototype.makeSprite = function(tile, coords, size) {
 		.css('overflow', 'hidden')
 		.css('z-index', sprite.coords.z)
 		.appendTo('.map')
-	;
-		
+    ;
+    //canvas.attr("id", "cvas");
+  //  var cvas = document.getElementById("cvas");
+    //    cvas.getContext('2d').imageSmoothingEnabled = false;
+    canvas.get(0).getContext('2d').imageSmoothingEnabled = false;
 	var image = new Image();
 	image.addEventListener('load', function() {
 		
@@ -150,10 +153,10 @@ Map.prototype.makeSprite = function(tile, coords, size) {
 		ctx.drawImage
 		(
 			image, 
-			tile.offset.x, 
-			tile.offset.y, 
-			tile.width, 
-			tile.height,
+		    tile.offset.x,// + .5, 
+		    tile.offset.y,// + .5, 
+		    tile.width,// - .5, 
+		    tile.height,// - .5,
 			0,
 			0,
 			sprite.width,
@@ -208,7 +211,7 @@ $(function(){
 	map.makeSprite(
 		tilesets.trees.tree_clump, 
 		{x: 0, y: 0}, 
-		{width: 1, height: 1}
+		{width: 2, height: 2}
 	);
 	map.makeSprite(
 		tilesets.trees.tree_clump, 
