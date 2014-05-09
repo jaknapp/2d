@@ -54,5 +54,42 @@
 <p>This code can be <a href="http://blogs.sitepointstatic.com/examples/tech/filedrag/3/filedrag3.zip">downloaded and used</a> without any restrictions but please don't expect support! A link back to SitePoint.com is appreciated.</p>
 
 <script src="filedrag.js"></script>
+<script>
+function drawBox(image, x, y, w, h)
+{
+	var box = document.createElement("div");
+	image.parentNode.insertBefore(box, image);
+	box.style.left = image.offsetLeft + x + "px";
+	box.style.top = image.offsetTop + y + "px";
+	box.style.width = w - 2 + "px";
+	box.style.height = h - 2 + "px";
+	box.setAttribute("class", "sprite-box");
+}
+
+function drawBoxes(image, w, h, rows, cols)
+{
+	var x = 0, y = 0;
+	
+	for(var i = 0; i < rows; i++)
+	{
+		for(var j = 0; j < cols; j++)
+		{
+			drawBox(image, x, y, w, h);
+			x += w;
+		}
+		
+		x = 0;
+		y += h;
+	}
+}
+
+function go()
+{
+	var image = document.getElementsByTagName("img")[0];
+	//drawBoxes(image, 50, 50, 4, 4);
+	// drawBoxes(image, 32, 32, 4, 4);
+	drawBoxes(image, 32, 32, 100, 8);
+}
+</script>
 </body>
 </html>

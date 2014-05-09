@@ -95,3 +95,9 @@ pre
 {
 	background: #c00 none 0 0 no-repeat;
 }
+
+.sprite-box
+{
+	border: 1px solid lime;
+	position: absolute;
+}
