@@ -107,6 +107,7 @@ Developed by Craig Buckler (@craigbuckler) of OptimalWorks.net
 			xhr.onreadystatechange = function(e) {
 				if (xhr.readyState == 4) {
 					progress.className = (xhr.status == 200 ? "success" : "failure");
+               console.log(xhr.responseText);
 				}
 			};
 
