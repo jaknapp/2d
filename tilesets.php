@@ -45,10 +45,12 @@ $select = $pdo->query
 				$filedragcolor = "#e0e0e0";
 				$filedragbgcolor = "white";
 			?>
+			html,
 			body
 			{
 				margin: 0;
 				padding: 0;
+				height: 100%;
 			}
 			#filedrag
 			{
@@ -63,6 +65,14 @@ $select = $pdo->query
 			{
 				padding: 10px;
 				border: 4px dashed <?=$filedragbgcolor?>;
+			}
+			img.ts-selected
+			{
+				border: 3px solid gold;
+			}
+			.tileset
+			{
+				border: 3px solid rgba(0, 0, 0, 0);
 			}
 		</style>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -206,7 +216,9 @@ $select = $pdo->query
 
 			// initialize
 			function Init() {
-
+				
+				var tem = new TileEditorMode();
+				
 				var filedrag = $id("filedrag");
 				// var fileselect = $id("fileselect"),
 					// filedrag = $id("filedrag"),
@@ -234,6 +246,56 @@ $select = $pdo->query
 				}
 
 			}
+			
+			// Tile Editor Mode
+			function TileEditorMode()
+			{
+				var mode = this;
+				
+				this.selector = ".tileset";
+				this.selected = -1;
+				this.select(0);
+				
+				var keyPress = function(event)
+				{
+					// "a"
+					if (97 == event.which)
+					{
+						mode.keyPressLeft();
+					}
+					// "d"
+					else if (100 == event.which)
+					{
+						mode.keyPressRight();
+					}
+				};
+				
+				$("body").keypress(keyPress);
+			}
+			
+			TileEditorMode.prototype.select = function(i)
+			{
+				if (0 <=i && $(this.selector).length > i)
+				{
+					if ($(this.selector)[this.selected])
+					{
+						$($(this.selector)[this.selected]).removeClass("ts-selected");
+					}
+					
+					this.selected = i;
+					$($(this.selector)[this.selected]).addClass("ts-selected");
+				}
+			};
+			
+			TileEditorMode.prototype.keyPressRight = function()
+			{
+				this.select(this.selected + 1);
+			};
+			
+			TileEditorMode.prototype.keyPressLeft = function()
+			{
+				this.select(this.selected - 1);
+			};
 				
 			window.onload = function() {
 				// call initialization file
@@ -253,7 +315,7 @@ $select = $pdo->query
 		
 		while($row = $select->fetchObject())
 		{
-			echo "<img src='{$row->filepath}'/>";
+			echo "<img class='tileset' src='{$row->filepath}'/>";
 		?>
 		
 		<?php
