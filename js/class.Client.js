@@ -1,0 +1,9 @@
+function Client()
+{
+   
+}
+
+renderScene = function()
+{
+   
+};
