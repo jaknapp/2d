@@ -1,0 +1,21 @@
+matrix3d(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+matrix3d(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1)
+matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1)
+matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1)
+
+rotatex -> 1 0 0 0
+           0 cosd -sind 0
+           0 sind cosd 0
+           0 0 0 1
+           
+rotatey -> cosd 0 sind 0
+           0 1 0 0
+           -sind 0 cosd 0
+           0 0 0 1
+
+rotatez -> cosd -sind 0 0
+           sind cosd 0 0
+           0 0 1 0
+           0 0 0 1
+
+http://inside.mines.edu/~gmurray/ArbitraryAxisRotation/ArbitraryAxisRotation.html

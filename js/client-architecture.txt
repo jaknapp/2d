@@ -1,0 +1,41 @@
+Camera/Screen
+
+   focus
+   draw2d
+
+World
+   getTicks()
+   pixelToWorldRatio
+
+GameObject
+   world
+   position
+   cssClass
+   tick
+   size
+   
+Animation
+   Animations[]
+   
+AnimationFrame -> Animation
+   cssClass
+   //spriteWorldScale - Bring the sprite into world size.
+      xNumerator, xDenominator, yNumerator, yDenominator
+      64 px sprite and 32 px sprite, you can have them each be the same size or not by scaling
+
+ObservedCharacter
+   
+Character
+   moveUp()
+   moveUpRight()
+   moveRight()
+   moveDownRight()
+   moveDown()
+   moveDownLeft()
+   moveLeft()
+   moveUpLeft()
+   
+Coordinate
+   x
+   y
+   z
