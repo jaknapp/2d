@@ -233,99 +233,173 @@
 
 function ScreenElement(cssClass)
 {
-   this.cssClass = cssClass;
-   this.element = $("<div/>");
+	this.cssClass = cssClass;
+	this.element = $("<div/>");
 }
 
 function WorldObject(pos, dim, cssClass)
 {
-   this.pos = pos;
-   this.dim = dim;
-   this.se = new ScreenElement(cssClass);
+	this.pos = pos;
+	this.dim = dim;
+	this.se = new ScreenElement(cssClass);
 }
 
+var screen = {};
+
+var xPxPerWu;
+var yPxPerWu;
+	
 var loadClient = function()
 {
-   var xWu = parseFloat($("#main-screen").attr("worldunitsx"));
-   var yWu = parseFloat($("#main-screen").attr("worldunitsy"));
-   var xPx = parseFloat($("#main-screen").css("width"));
-   var yPx = parseFloat($("#main-screen").css("height"));
-   
-   var xPxPerWu = xPx / xWu;
-   var yPxPerWu = yPx / yWu;
-   
-   var xWorldOffset = -parseFloat($("#main-screen").attr("worldoriginx")) + "px";
-   var yWorldOffset = -parseFloat($("#main-screen").attr("worldoriginy")) + "px";
-   
-   $(".world").css("left", xWorldOffset);
-   $(".world").css("top", yWorldOffset);
-   
-   var worldObjects = [];
-   worldObjects.push
-   (
-      new WorldObject
-      (
-         {
-            x: 1000,
-            y: 1000
-         },
-         {
-            w: 150,
-            h: 150
-         },
-         "fighter-red-01"
-      )
-   );
-   
-   $(worldObjects).each(function(i, wo)
-   {
-      var leftPx = wo.pos.x * xPxPerWu + "px";
-      var topPx  = wo.pos.y * yPxPerWu + "px";
-      var widthPx = wo.dim.w * xPxPerWu + "px";
-      var heightPx = wo.dim.h * yPxPerWu + "px";
-      
-      wo.se.element.css("position", "absolute");
-      wo.se.element.css("left", leftPx);
-      wo.se.element.css("top", topPx);
-      wo.se.element.css("width", widthPx);
-      wo.se.element.css("height", heightPx);
-      wo.se.element.addClass("sprite");
-      wo.se.element.addClass(wo.se.cssClass);
-      wo.se.element.appendTo(".world");
-   });
+	var xWu = parseFloat($("#main-screen").attr("worldunitsx"));
+	var yWu = parseFloat($("#main-screen").attr("worldunitsy"));
+	var xPx = parseFloat($("#main-screen").css("width"));
+	var yPx = parseFloat($("#main-screen").css("height"));
+	
+	xPxPerWu = xPx / xWu;
+	yPxPerWu = yPx / yWu;
+	
+	// wuToPx = function(wu)
+	// {
+		// return 
+	// };
+	
+	// pxToWu = function(px)
+	// {
+		
+	// };
+	
+	var xWorldOffset = -parseFloat($("#main-screen").attr("worldoriginx")) + "px";
+	var yWorldOffset = -parseFloat($("#main-screen").attr("worldoriginy")) + "px";
+	
+	// screen.xWu = xWu;
+	// screen.yWu = yWu;
+	// screen.xPx = yPx;
+	
+	// screen.xPxPerWu = xPxPerWu;
+	// screen.yPxPerWu = yPxPerWu;
+	
+	$(".world").css("left", xWorldOffset);
+	$(".world").css("top", yWorldOffset);
+	
+	var worldObjects = [];
+	worldObjects.push
+	(
+		new WorldObject
+		(
+			{
+				x: 1000,
+				y: 1000
+			},
+			{
+				// w: 150,
+				// h: 150
+				w: 50,
+				h: 50
+			},
+			"fighter-red-01"
+		)
+	);
+	
+	$(worldObjects).each(function(i, wo)
+	{
+		var leftPx = wo.pos.x * xPxPerWu + "px";
+		var topPx  = wo.pos.y * yPxPerWu + "px";
+		var widthPx = wo.dim.w * xPxPerWu + "px";
+		var heightPx = wo.dim.h * yPxPerWu + "px";
+		
+		wo.se.element.css("position", "absolute");
+		wo.se.element.css("left", leftPx);
+		wo.se.element.css("top", topPx);
+		wo.se.element.css("width", widthPx);
+		wo.se.element.css("height", heightPx);
+		wo.se.element.addClass("sprite");
+		wo.se.element.addClass(wo.se.cssClass);
+		wo.se.element.appendTo(".world");
+	});
+	
+	var moveSpeedWuPerS = 10;
+	
+	var keyPress = function(event)
+	{
+		// "a"
+		if (97 == event.which)
+		{
+			// mode.keyPressLeft();
+			moveLeft(moveSpeedWuPerS);
+		}
+		// "d"
+		else if (100 == event.which)
+		{
+			moveRight(moveSpeedWuPerS);
+			// mode.keyPressRight();
+		}
+	};
+	
+	$("body").keypress(keyPress);
 };
+
+function moveLeft(wu)
+{
+	moveRight(-wu);
+}
+
+function moveRight(wu)
+{
+	var leftPx = parseFloat($(".world").css("left"));
+	leftPx += wu * xPxPerWu;
+	console.log("Moving world left" + (-(wu * xPxPerWu)) + ".");
+	$(".world").animate
+	(
+		{
+			"left": leftPx + "px"
+		},
+		{
+			duration: 1000,
+			step: function() {
+			},
+			complete: function() {
+				
+			},
+			easing: 0,
+			progress: function(animation, progress, remainingMs)
+			{
+			}
+		}
+	);
+}
 
 $(loadClient);
 </script>
 <style>
 #main-screen
 {
-   width: 500px;
-   height: 500px;
-   overflow: hidden;
-   margin-left: auto;
-   margin-right: auto;
+	width: 500px;
+	height: 500px;
+	overflow: hidden;
+	margin-left: auto;
+	margin-right: auto;
 }
 .world
 {
-   position: relative;
+	position: relative;
 }
 .sprite
 {
-   background-repeat: no-repeat;
-   background-attachment: scroll;
-   background-position: center center;
-   -webkit-background-size: cover;
-   -moz-background-size: cover;
-   -o-background-size: cover;
-   background-size: cover;
-   filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='slicer/images/fighter-red-01.png', sizingMethod='scale');
-   -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='slicer/images/fighter-red-01.png', sizingMethod='scale')";
-   zoom:1;
+	background-repeat: no-repeat;
+	background-attachment: scroll;
+	background-position: center center;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='slicer/images/fighter-red-01.png', sizingMethod='scale');
+	-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='slicer/images/fighter-red-01.png', sizingMethod='scale')";
+	zoom:1;
 }
 .fighter-red-01
 {
-   background-image: url("slicer/images/fighter-red-01.png");
+	background-image: url("slicer/images/fighter-red-01.png");
 }
 </style>
 </head>

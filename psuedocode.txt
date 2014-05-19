@@ -1,0 +1,26 @@
+
+keyPress
+	- movement[direction] = 1 - potentially movement[direction] = starting with setTimeout(startMovement)
+	- Update state to include movement in this direction
+	- setTimeout(move)
+	
+keyUp
+	- movement[direction] = 0 - potentially movement[direction] = stopping with setTimeout(stopMovement)
+	0. clearTimeout - maybe...
+	1. do one last movement frame
+	2. update the state to remove movement in this direction
+	
+if (RIGHT_UP == movement)
+{
+	timeSinceLastMovement * moveSpeed
+	setTimeout
+}
+else if (RIGHT == movement)
+{
+}
+else if (LEFT == movement)
+{
+}
+else if (LEFT_DOWN == movement)
+{
+}
